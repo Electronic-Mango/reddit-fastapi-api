@@ -4,7 +4,7 @@
 [![Black](https://github.com/Electronic-Mango/reddit-api-api/actions/workflows/black.yml/badge.svg)](https://github.com/Electronic-Mango/reddit-api-api/actions/workflows/black.yml)
 [![Flake8](https://github.com/Electronic-Mango/reddit-api-api/actions/workflows/flake8.yml/badge.svg)](https://github.com/Electronic-Mango/reddit-api-api/actions/workflows/flake8.yml)
 
-A simple Reddit REST API allowing accessing both subreddit and user submissions, build with [`Flask`](https://github.com/pallets/flask/).
+A simple Reddit REST API allowing accessing both subreddit and user articles, build with [`Flask`](https://github.com/pallets/flask/).
 
 
 
@@ -20,11 +20,11 @@ A simple Reddit REST API allowing accessing both subreddit and user submissions,
    - [From source](#from-source)
    - [Docker](#docker-1)
  - [API endpoints](#api-endpoints)
-   - [Get a list of submissions from a subreddit](#get-a-list-of-submissions-from-a-subreddit)
-   - [Get one random submission from a subreddit](#get-one-random-submission-from-a-subreddit)
-   - [Get a list of submissions from a Reddit user](#get-a-list-of-submissions-from-a-reddit-user)
-   - [Get a random submission from a Reddit user](#get-a-random-submission-from-a-reddit-user)
- - [Filtering and submission types](#filtering-and-submission-types)
+   - [Get a list of articles from a subreddit](#get-a-list-of-articles-from-a-subreddit)
+   - [Get one random article from a subreddit](#get-one-random-article-from-a-subreddit)
+   - [Get a list of articles from a Reddit user](#get-a-list-of-articles-from-a-reddit-user)
+   - [Get a random article from a Reddit user](#get-a-random-article-from-a-reddit-user)
+ - [Filtering and article types](#filtering-and-article-types)
    - [Reddit galleries](#reddit-galleries)
  - [Load count](#load-count)
 
@@ -40,7 +40,7 @@ Full list of Python requirements is in `requirements.txt` file.
 Technically this API only *wraps* parts of official Reddit API, thus *Reddit API **API***.
 However, accessing Reddit API itself through external services is quite cumbersome, due to necessary OAuth 2.0 authorization.
 This API allows external services to access API through simple HTTP requests, without worrying about access tokens, Reddit app client, etc.
-It also allows for simple access to specific services, like reading only one random submission or reading only media or text submissions, without any additional processing.
+It also allows for simple access to specific services, like reading only one random article or reading only media or text articles, without any additional processing.
 
 No additional API wrapper was used, this API accesses Reddit API directly.
 
@@ -137,25 +137,25 @@ You can get around this by modifying value of `CUSTOM_SETTINGS_PATH` in `docker-
 All endpoints are accessible via `GET` requests.
 If request authorization is configured incoming requests needs to have correct header and its value.
 
-### Get a list of submissions from a subreddit
+### Get a list of articles from a subreddit
 
 Endpoint:
 ```
-/subreddit/{submission_type}/{subreddit_name}/{load_count}/{sort_type}
+/subreddit/{article_type}/{subreddit_name}/{load_count}/{sort_type}
 ```
 
-|Parameter|Description|Optional|Default value|
-|-|-|-|-|
-|`{submission_type}`|Whether to load all submissions, only text or only images|No||
-|`{subreddit_name}`|Name of subreddit to load submissions from, including `all` and `popular`|Yes|`all`|
-|`{load_count}`|How many submissions to load|Yes|`50`|
-|`{sort_type}`|Which Reddit sorting type to use when loading submissions|Yes|`hot`|
+| Parameter          | Description                                                            | Optional | Default value |
+|--------------------|------------------------------------------------------------------------|----------|---------------|
+| `{article_type}`   | Whether to load all articles, only text or only images                 | No       |               |
+| `{subreddit_name}` | Name of subreddit to load articles from, including `all` and `popular` | Yes      | `all`         |
+| `{load_count}`     | How many articles to load                                              | Yes      | `50`          |
+| `{sort_type}`      | Which Reddit sorting type to use when loading articles                 | Yes      | `hot`         |
 
-`{submission_type}` can be one of the following:
+`{article_type}` can be one of the following:
 
- - `submission` - all submissions
- - `media` - only media submissions
- - `text` - only submissions where `selftext` is not empty
+ - `article` - all articles
+ - `media` - only media articles
+ - `text` - only articles where `selftext` is not empty
 
 `{sort_type}` can be one of the following:
 
@@ -169,14 +169,14 @@ Endpoint:
 
 Example request:
 ```
-GET /subreddit/submission/wholesomememes/3/top
+GET /subreddit/article/wholesomememes/3/top
 ```
 
 Example response:
 ```json
 {
   "count": 3,
-  "submissions": [
+  "articles": [
     {
       "author": "Boreol",
       "created_utc": "Mon, 15 Aug 2022 11:22:19 GMT",
@@ -230,16 +230,16 @@ For images and GIFs `media_url` field is the same as `url`.
 For videos it will be a different URL.
 
 
-### Get one random submission from a subreddit
+### Get one random article from a subreddit
 
 Endpoint:
 ```
-/subreddit/{submission_type}/random/{subreddit_name}/{load_count}/{sort_type}
+/subreddit/{article_type}/random/{subreddit_name}/{load_count}/{sort_type}
 ```
 
-All parameters are the same as for [loading a list of submissions for a subreddit](#get-a-list-of-submissions-from-a-subreddit).
+All parameters are the same as for [loading a list of articles for a subreddit](#get-a-list-of-articles-from-a-subreddit).
 
-`{load_count}` determines how many submissions will be loaded, a random one will be selected from them.
+`{load_count}` determines how many articles will be loaded, a random one will be selected from them.
 
 
 Example request:
@@ -267,14 +267,14 @@ Example response:
 ```
 
 
-### Get a list of submissions from a Reddit user
+### Get a list of articles from a Reddit user
 
 Endpoint:
 ```
-/user/{submission_type}/{user_name}/{load_count}/{sort_type}
+/user/{article_type}/{user_name}/{load_count}/{sort_type}
 ```
 
-All parameters are the same as for [loading a list of submissions for a subreddit](#get-a-list-of-submissions-from-a-subreddit), except for providing a Reddit username instead of subreddit name.
+All parameters are the same as for [loading a list of articles for a subreddit](#get-a-list-of-articles-from-a-subreddit), except for providing a Reddit username instead of subreddit name.
 Username parameter is required, unlike subreddit.
 
 Example request:
@@ -286,7 +286,7 @@ Example response:
 ```json
 {
   "count": 2,
-  "submissions": [
+  "articles": [
     {
       "author": "CME_T",
       "created_utc": "Mon, 25 Jul 2022 18:08:12 GMT",
@@ -321,20 +321,20 @@ Example response:
 }
 ```
 
-Notice that 3 media submissions were requested, but response only contains 2.
-It's because out of 3 loaded submissions only 2 were images.
+Notice that 3 media articles were requested, but response only contains 2.
+It's because out of 3 loaded articles only 2 were images.
 
 Also, since `{sort_type}` was omitted default value of `hot` was used.
 
 
-### Get a random submission from a Reddit user
+### Get a random article from a Reddit user
 
 Endpoint:
 ```
-/user/{submission_type}/random/{user_name}/{load_count}/{sort_type}
+/user/{article_type}/random/{user_name}/{load_count}/{sort_type}
 ```
 
-All parameters are the same as for [loading a list of submissions for a Reddit user](#get-a-list-of-submissions-from-a-reddit-user).
+All parameters are the same as for [loading a list of articles for a Reddit user](#get-a-list-of-articles-from-a-reddit-user).
 
 Example request:
 ```
@@ -363,12 +363,12 @@ Example response:
 Since both `{load_count}` and `{sort_type}` were omitted, the default values of `50` and `hot` were used.
 
 
-## Filtering and submission types
+## Filtering and article types
 
-Other than all submissions, API allows for filtering submission types.
+Other than all articles, API allows for filtering article types.
 The two filters are `text` and `media`.
 
-For `text` all submissions where `selftext` is not empty are selected.
+For `text` all articles where `selftext` is not empty are selected.
 
 For `media` there are two cases, one for images and one for videos:
 
@@ -386,16 +386,16 @@ Currently galleries won't be filtered into `media` category and their media URLs
 
 ## Load count
 
-When specifying how many submissions should be loaded the final count can be lower.
+When specifying how many articles should be loaded the final count can be lower.
 
-For all submissions this can occur if a given subreddit or user has less submissions than specified.
+For all articles this can occur if a given subreddit or user has less articles than specified.
 
-For text and media submissions the passed value only determines how many submissions are loaded from Reddit overall.
-This value can be later lowered as only specific type of submissions are filtered from the list of all submissions.
-Not additional submissions are loaded after filtering.
+For text and media articles the passed value only determines how many articles are loaded from Reddit overall.
+This value can be later lowered as only specific type of articles are filtered from the list of all articles.
+Not additional articles are loaded after filtering.
 
-Load count also impacts retrieving one random submission.
-This one random submission is picked from a loaded selection, instead of sending all of them.
-Actual count of submissions to pick from can be lowered due to additional filtering, as before.
+Load count also impacts retrieving one random article.
+This one random article is picked from a loaded selection, instead of sending all of them.
+Actual count of articles to pick from can be lowered due to additional filtering, as before.
 
-Still, the higher the load count the lower the odds of selecting the same random submission on subsequent API calls.
+Still, the higher the load count the lower the odds of selecting the same random article on subsequent API calls.

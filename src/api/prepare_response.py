@@ -1,5 +1,5 @@
 """
-Module responsible for preparing responses with Reddit submissions.
+Module responsible for preparing responses with Reddit articles.
 """
 
 from random import choice
@@ -7,32 +7,32 @@ from typing import Any
 
 from flask import abort
 
-from api.reddit_client import Submission
+from api.reddit_client import Article
 
 
-def prepare_list_response_or_abort(submissions: list[Submission]) -> dict[str, Any]:
-    """Prepare API list response or abort with code 404 if no submissions are present
-
-    Args:
-        submissions (list[Submission]): list of Reddit submissions to send back
-
-    Returns:
-        dict[str, Any]: JSON containing list of generated submissions and their count
-    """
-    if not submissions:
-        abort(404, "No entries found")
-    return {"count": len(submissions), "submissions": submissions}
-
-
-def prepare_random_response_or_abort(submissions: list[Submission]) -> dict[str, Any]:
-    """Prepare API random, single response or abort with code 404 if no submissions are present
+def prepare_list_response_or_abort(articles: list[Article]) -> dict[str, Any]:
+    """Prepare API list response or abort with code 404 if no articles are present
 
     Args:
-        submissions (list[Submission]): list of submissions to pick one random from to send back
+        articles (list[Article]): list of Reddit articles to send back
 
     Returns:
-        dict[str, Any]: JSON containing data of one random submission
+        dict[str, Any]: JSON containing list of generated articles and their count
     """
-    if not submissions:
+    if not articles:
         abort(404, "No entries found")
-    return choice(submissions)
+    return {"count": len(articles), "articles": articles}
+
+
+def prepare_random_response_or_abort(articles: list[Article]) -> dict[str, Any]:
+    """Prepare API random, single response or abort with code 404 if no articles are present
+
+    Args:
+        articles (list[Article]): list of articles to pick one random from to send back
+
+    Returns:
+        dict[str, Any]: JSON containing data of one random article
+    """
+    if not articles:
+        abort(404, "No entries found")
+    return choice(articles)

@@ -3,7 +3,8 @@ Module holding middleware blueprint used for API requests authorization.
 """
 
 from logging import getLogger
-from flask import abort, Blueprint, request
+
+from flask import Blueprint, abort, request
 
 from settings import API_AUTHORIZATION_HEADER_NAME, API_AUTHORIZATION_HEADER_VALUE
 

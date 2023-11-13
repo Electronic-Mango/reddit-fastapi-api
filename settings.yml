@@ -10,7 +10,7 @@ api:
   # Port where API will listen to requests
   port: 8080
   reddit:
-    # How many submissions are loaded with each request by default
+    # How many articles are loaded with each request by default
     default_load_count: 50
     # Loaded subreddit when none is specified
     default_subreddit: all

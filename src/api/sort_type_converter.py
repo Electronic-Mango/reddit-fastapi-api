@@ -1,15 +1,14 @@
 """
-Custom converter used for converting string endpoint paramters to SortType.
+Custom converter used for converting string endpoint paramters to ArticlesSortType.
 """
 
+from redditpythonapi import ArticlesSortType
 from werkzeug.routing import BaseConverter
-
-from reddit.wrapper import SortType
 
 
 class SortTypeConverter(BaseConverter):
-    def to_python(self, value: str) -> SortType:
-        return SortType[value.lower()]
+    def to_python(self, value: str) -> ArticlesSortType:
+        return ArticlesSortType[value.upper()]
 
-    def to_url(slef, value: SortType) -> str:
-        return value.value
+    def to_url(self, value: ArticlesSortType) -> str:
+        return value.name.lower()
