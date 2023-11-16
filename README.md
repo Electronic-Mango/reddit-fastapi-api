@@ -27,6 +27,7 @@ A simple Reddit REST API allowing accessing both subreddit and user articles, bu
  - [Filtering and article types](#filtering-and-article-types)
    - [Reddit galleries](#reddit-galleries)
  - [Load count](#load-count)
+ - [Disclaimer](#disclaimer)
 
 
 
@@ -399,3 +400,11 @@ This one random article is picked from a loaded selection, instead of sending al
 Actual count of articles to pick from can be lowered due to additional filtering, as before.
 
 Still, the higher the load count the lower the odds of selecting the same random article on subsequent API calls.
+
+
+
+## Disclaimer
+
+This bot is in no way affiliated, associated, authorized, endorsed by, or in any way officially connected with Reddit.
+This is an independent and unofficial project.
+Use at your own risk.
