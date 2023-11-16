@@ -14,7 +14,9 @@ _reddit = Reddit(
 )
 
 
-async def get_subreddit_articles(subreddit: str, limit: int, sort: ArticlesSortType) -> list[Article]:
+async def get_subreddit_articles(
+    subreddit: str, limit: int, sort: ArticlesSortType
+) -> list[Article]:
     """Get a list of articles from the given subreddit
 
     Resulting list can be shorter than "limit" argument if given subreddit has fewer articles.
@@ -31,7 +33,9 @@ async def get_subreddit_articles(subreddit: str, limit: int, sort: ArticlesSortT
     return list(map(parse_article, articles))
 
 
-async def get_subreddit_media_articles(subreddit: str, limit: int, sort: ArticlesSortType) -> list[Article]:
+async def get_subreddit_media_articles(
+    subreddit: str, limit: int, sort: ArticlesSortType
+) -> list[Article]:
     """Get a list of media articles (images, GIFs, videos) from the given subreddit
 
     Resulting list can be shorter than "limit" argument if given subreddit has fewer articles.
@@ -52,7 +56,9 @@ async def get_subreddit_media_articles(subreddit: str, limit: int, sort: Article
     return list(filter(lambda article: article["media_url"], articles))
 
 
-async def get_subreddit_text_articles(subreddit: str, limit: int, sort: ArticlesSortType) -> list[Article]:
+async def get_subreddit_text_articles(
+    subreddit: str, limit: int, sort: ArticlesSortType
+) -> list[Article]:
     """Get a list of text articles from the given subreddit
 
     Resulting list can be shorter than "limit" argument if given subreddit has fewer articles.
@@ -90,7 +96,9 @@ async def get_user_articles(username: str, limit: int, sort: ArticlesSortType) -
     return list(map(parse_article, articles))
 
 
-async def get_user_image_articles(username: str, limit: int, sort: ArticlesSortType) -> list[Article]:
+async def get_user_image_articles(
+    username: str, limit: int, sort: ArticlesSortType
+) -> list[Article]:
     """Get a list of media articles (images, GIFs, videos) from the given user
 
     Resulting list can be shorter than "limit" argument if given user has fewer articles.
@@ -111,7 +119,9 @@ async def get_user_image_articles(username: str, limit: int, sort: ArticlesSortT
     return list(filter(lambda article: article["media_url"], articles))
 
 
-async def get_user_text_articles(username: str, limit: int, sort: ArticlesSortType) -> list[Article]:
+async def get_user_text_articles(
+    username: str, limit: int, sort: ArticlesSortType
+) -> list[Article]:
     """Get a list of text articles from the given user
 
     Resulting list can be shorter than "limit" argument if given user has fewer articles.
