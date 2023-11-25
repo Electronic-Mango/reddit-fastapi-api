@@ -1,8 +1,6 @@
 # Dockerfile which can be used for deploying the API as a Docker container.
 
-FROM python:3.10-slim
-
-RUN pip install --no-cache-dir --upgrade pip
+FROM python:3.10-alpine
 
 WORKDIR /app
 
