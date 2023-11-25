@@ -78,7 +78,7 @@ No other data is necessary, since the API works in `read-only` mode.
 
 ### Docker
 
-There's a `Dockerfile` in the repo, which will build a Docker image for the API using `python:3.10-slim` as base.
+There's a `Dockerfile` in the repo, which will build a Docker image for the API using `python:3.10-alpine` as base.
 You can set all configuration parameters using environment variables for Docker container, rather than modifying project files before building.
 
 You can also use `docker-compose.yml` to build and start the container via:
