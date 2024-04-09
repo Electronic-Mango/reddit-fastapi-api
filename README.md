@@ -14,7 +14,7 @@ build with [`Flask`](https://github.com/pallets/flask/) and my [`Reddit Python A
  - [Introduction and requirements](#introduction-and-requirements)
  - [Configuration](#configuration)
    - [API parameters](#api-parameters)
-   - [Reddit app & required parameters](#reddit-app---required-parameters)
+   - [Reddit app & required parameters](#reddit-app--required-parameters)
    - [Docker](#docker)
  - [Additional authorization](#additional-authorization)
  - [Running the API](#running-the-api)
@@ -59,7 +59,7 @@ You can check my other repository [Memes Discord bot Docker deployment](https://
 ### API parameters
 
 API configuration can be done through a YAML configuration file.
-By default `settings.yml` from the project root is used, which has some sensible defaults, other than [Reddit API client ID and secret](#reddit-app-&-required-parameters).
+By default `settings.yml` from the project root is used, which has some sensible defaults, other than [Reddit API client ID and secret](#reddit-app--required-parameters).
 
 You can overwrite values from default `settings.yml` by providing a custom one under path from `CUSTOM_SETTINGS_PATH` environment variable.
 In this custom YAML you can provide only parameters which you want to overwrite.
@@ -88,8 +88,8 @@ You can also use `docker-compose.yml` to build and start the container via:
 docker compose up -d --build
 ```
 
-Compose allows using `custom_settings.yml` in project root for custom configuration, like [Reddit app ID and secret](#reddit-app-&-required-parameters) without modifying project files.
-By default this file will be loaded into the image, along with all `.yml` files from the project root.
+Compose allows using `custom_settings.yml` in project root for custom configuration, like [Reddit app ID and secret](#reddit-app--required-parameters) without modifying project files.
+By default, this file will be loaded into the image, along with all `.yml` files from the project root.
 
 You can get around this by modifying value of `CUSTOM_SETTINGS_PATH` in `docker-compose.yml` to point to a file in a mounted volume.
 
@@ -229,7 +229,7 @@ Example response:
 ```
 
 For images and GIFs `media_url` field is the same as `url`.
-For videos it will be a different URL.
+For videos, it will be a different URL.
 
 
 ### Get one random article from a subreddit
@@ -375,7 +375,7 @@ For `text` all articles where `selftext` is not empty are selected.
 For `media` there are two cases, one for images and one for videos:
 
  - images are detected based on `i.redd.it` domain **OR** `post_hint` equal to `image`, since not all subreddits have `post_hint`
- - videos are detected based on `v.redd.it` domain **AND** `is_video` equal to `True`, there are some posts where domain is `v.redd.it`, but there're no necessary URLs
+ - videos are detected based on `v.redd.it` domain **AND** `is_video` equal to `True`, there are some posts where domain is `v.redd.it`, but there are no necessary URLs
 
 In case of videos, resulting `media_url` URL has `?source=fallback` trimmed out, so it ends with file extension.
 
@@ -390,7 +390,7 @@ Currently, galleries won't be filtered into `media` category and their media URL
 
 When specifying how many articles should be loaded the final count can be lower.
 
-For all articles this can occur if a given subreddit or user has less articles than specified.
+For all articles this can occur if a given subreddit or user has fewer articles than specified.
 
 For text and media articles the passed value only determines how many articles are loaded from Reddit overall.
 This value can be later lowered as only specific type of articles are filtered from the list of all articles.

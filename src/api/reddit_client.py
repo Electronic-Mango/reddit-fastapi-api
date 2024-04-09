@@ -39,7 +39,7 @@ async def get_subreddit_media_articles(
     """Get a list of media articles (images, GIFs, videos) from the given subreddit
 
     Resulting list can be shorter than "limit" argument if given subreddit has fewer articles.
-    Additionally "limit" only defines how many articles are loaded from given subreddit,
+    Additionally, "limit" only defines how many articles are loaded from given subreddit,
     more articles will be dropped as part of "media" filtering.
     Articles are classified as "media" based on present "media_url" key in parsed article.
 
