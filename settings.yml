@@ -9,11 +9,6 @@ api:
   host: 0.0.0.0
   # Port where API will listen to requests
   port: 8080
-  reddit:
-    # How many articles are loaded with each request by default
-    default_load_count: 50
-    # Loaded subreddit when none is specified
-    default_subreddit: all
   authorization_header:
     # Name of authorization header, or empty for public access
     name:
