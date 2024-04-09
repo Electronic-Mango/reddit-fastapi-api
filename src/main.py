@@ -6,7 +6,7 @@ from logging import INFO, basicConfig
 
 from waitress import serve
 
-from api.api import prepare_api
+from api.app import prepare_api
 from settings import API_HOST, API_PORT
 
 if __name__ == "__main__":
