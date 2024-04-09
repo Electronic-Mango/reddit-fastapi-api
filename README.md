@@ -34,8 +34,8 @@ build with [`Flask`](https://github.com/pallets/flask/) and my [`Reddit Python A
 
 ## Introduction and requirements
 
-This REST API was built using [`Flask`](https://github.com/pallets/flask/), my [`Reddit Python API`](https://github.com/Electronic-Mango/reddit-python-api)  and `Python 3.10`.
-Python version at least `3.10` is required.
+This REST API was built using [`Flask`](https://github.com/pallets/flask/), my [`Reddit Python API`](https://github.com/Electronic-Mango/reddit-python-api)  and `Python 3.11`.
+Python version at least `3.11` is required.
 
 Full list of Python requirements is in `requirements.txt` file.
 
@@ -79,7 +79,7 @@ No other data is necessary, since the API works in `read-only` mode.
 
 ### Docker
 
-There's a `Dockerfile` in the repo, which will build a Docker image for the API using `python:3.10-alpine` as base.
+There's a `Dockerfile` in the repo, which will build a Docker image for the API using `python:3.12-alpine` as base.
 You can set all configuration parameters using environment variables for Docker container, rather than modifying project files before building.
 
 You can also use `docker-compose.yml` to build and start the container via:
