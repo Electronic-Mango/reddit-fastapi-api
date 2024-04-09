@@ -2,8 +2,9 @@
 Module responsible for accessing Reddit API via PRAW.
 """
 
-from api.article_parser import parse_article
 from redditpythonapi import Article, ArticlesSortTime, ArticlesSortType, Reddit
+
+from reddit.article_parser import parse_article
 from settings import REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET, REDDIT_CLIENT_USER_AGENT
 
 _reddit = Reddit(

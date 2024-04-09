@@ -7,7 +7,7 @@ from typing import Any
 
 from fastapi import HTTPException
 
-from api.reddit_client import Article
+from reddit.reddit_client import Article
 
 
 def prepare_list_response_or_abort(articles: list[Article]) -> dict[str, Any]:

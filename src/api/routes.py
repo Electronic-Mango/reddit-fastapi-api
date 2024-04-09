@@ -1,14 +1,15 @@
 from enum import Enum, auto
 
-from api.prepare_response import prepare_list_response_or_abort, prepare_random_response_or_abort
-from api.reddit_client import (
+from fastapi import APIRouter
+from redditpythonapi import Article, ArticlesSortTime, ArticlesSortType
+
+from reddit.prepare_response import prepare_list_response_or_abort, prepare_random_response_or_abort
+from reddit.reddit_client import (
     filter_media_articles,
     filter_text_articles,
     get_subreddit_articles,
     get_user_articles,
 )
-from fastapi import APIRouter
-from redditpythonapi import Article, ArticlesSortTime, ArticlesSortType
 
 subreddit_router = APIRouter(prefix="/subreddit")
 user_router = APIRouter(prefix="/user")
