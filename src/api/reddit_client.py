@@ -29,7 +29,7 @@ async def get_subreddit_articles(
     Returns:
         list[Article]: list of all loaded articles from given subreddit.
     """
-    articles = await _reddit.subreddit_articles(subreddit, limit, sort)
+    articles = await _reddit.subreddit_articles(subreddit, sort=sort, limit=limit)
     return list(map(parse_article, articles))
 
 
@@ -51,7 +51,7 @@ async def get_subreddit_media_articles(
     Returns:
         list[Article]: list of all loaded media articles from given subreddit.
     """
-    articles = await _reddit.subreddit_articles(subreddit, limit, sort)
+    articles = await _reddit.subreddit_articles(subreddit, sort=sort, limit=limit)
     articles = map(parse_article, articles)
     return list(filter(lambda article: article["media_url"], articles))
 
@@ -74,7 +74,7 @@ async def get_subreddit_text_articles(
     Returns:
         list[Article]: list of all loaded text articles from given subreddit.
     """
-    articles = await _reddit.subreddit_articles(subreddit, limit, sort)
+    articles = await _reddit.subreddit_articles(subreddit, sort=sort, limit=limit)
     articles = map(parse_article, articles)
     return list(filter(lambda article: article["selftext"], articles))
 
@@ -92,7 +92,7 @@ async def get_user_articles(username: str, limit: int, sort: ArticlesSortType) -
     Returns:
         list[Article]: list of all loaded articles from given user.
     """
-    articles = await _reddit.user_articles(username, limit, sort)
+    articles = await _reddit.user_articles(username, sort=sort, limit=limit)
     return list(map(parse_article, articles))
 
 
@@ -114,7 +114,7 @@ async def get_user_image_articles(
     Returns:
         list[Article]: list of all loaded media articles from given user.
     """
-    articles = await _reddit.user_articles(username, limit, sort)
+    articles = await _reddit.user_articles(username, sort=sort, limit=limit)
     articles = map(parse_article, articles)
     return list(filter(lambda article: article["media_url"], articles))
 
@@ -137,6 +137,6 @@ async def get_user_text_articles(
     Returns:
         list[Article]: list of all loaded text articles from given user.
     """
-    articles = await _reddit.user_articles(username, limit, sort)
+    articles = await _reddit.user_articles(username, sort=sort, limit=limit)
     articles = map(parse_article, articles)
     return list(filter(lambda article: article["selftext"], articles))
