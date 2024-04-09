@@ -4,7 +4,8 @@
 [![Black](https://github.com/Electronic-Mango/reddit-api-api/actions/workflows/black.yml/badge.svg)](https://github.com/Electronic-Mango/reddit-api-api/actions/workflows/black.yml)
 [![Flake8](https://github.com/Electronic-Mango/reddit-api-api/actions/workflows/flake8.yml/badge.svg)](https://github.com/Electronic-Mango/reddit-api-api/actions/workflows/flake8.yml)
 
-A simple Reddit REST API allowing accessing both subreddit and user articles, build with [`Flask`](https://github.com/pallets/flask/).
+A simple Reddit REST API allowing accessing both subreddit and user articles,
+build with [`Flask`](https://github.com/pallets/flask/) and my [`Reddit Python API`](https://github.com/Electronic-Mango/reddit-python-api)!
 
 
 
@@ -33,7 +34,7 @@ A simple Reddit REST API allowing accessing both subreddit and user articles, bu
 
 ## Introduction and requirements
 
-This REST API was built using [`Flask`](https://github.com/pallets/flask/) and `Python 3.10`.
+This REST API was built using [`Flask`](https://github.com/pallets/flask/), my [`Reddit Python API`](https://github.com/Electronic-Mango/reddit-python-api)  and `Python 3.10`.
 Python version at least `3.10` is required.
 
 Full list of Python requirements is in `requirements.txt` file.
@@ -43,7 +44,7 @@ However, accessing Reddit API itself through external services is quite cumberso
 This API allows external services to access API through simple HTTP requests, without worrying about access tokens, Reddit app client, etc.
 It also allows for simple access to specific services, like reading only one random article or reading only media or text articles, without any additional processing.
 
-No additional API wrapper was used, this API accesses Reddit API directly.
+This API uses my simple [`Reddit Python API`](https://github.com/Electronic-Mango/reddit-python-api) to access official Reddit API.
 
 No data is stored by the API.
 Reddit is accessed in `read-only` mode.
@@ -117,14 +118,14 @@ First you need to register a Reddit app and note its ID and secret.
 ###  From source
 
  1. Install all packages from `requirements.txt`
- 1. Fill Reddit app ID and secret either in `settings.yml` or in a custom one
- 1. Run `src/main.py` via Python
+ 2. Fill Reddit app ID and secret either in `settings.yml` or in a custom one
+ 3. Run `src/main.py` via Python
 
 
 ### Docker
 
  1. Fill Reddit app ID and secret in `settings.yml` or in `custom_settings.yml`
- 1. Run `docker compose up -d --build`
+ 2. Run `docker compose up -d --build`
 
 You can skip `--build` flag on subsequent runs if you didn't change the source code, but keep in mind that by default `custom_settings.yml` is added to the docker image.
 Any changes there will require image rebuild.
@@ -381,7 +382,7 @@ In case of videos, resulting `media_url` URL has `?source=fallback` trimmed out,
 
 ### Reddit galleries
 
-Currently galleries won't be filtered into `media` category and their media URLs aren't easily accessible.
+Currently, galleries won't be filtered into `media` category and their media URLs aren't easily accessible.
 
 
 
