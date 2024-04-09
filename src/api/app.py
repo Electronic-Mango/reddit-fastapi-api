@@ -5,7 +5,6 @@ Module responsible for API itself, registers all blueprints.
 from fastapi import FastAPI
 
 # from api.middleware.authorization import blueprint as authorization
-# from api.middleware.log_request import blueprint as log_request
 from api.routes import subreddit_router, user_router
 
 
