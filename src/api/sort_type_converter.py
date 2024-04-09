@@ -1,5 +1,5 @@
 """
-Custom converter used for converting string endpoint paramters to ArticlesSortType.
+Custom converter used for converting string endpoint parameters to ArticlesSortType.
 """
 
 from redditpythonapi import ArticlesSortType

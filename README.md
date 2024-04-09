@@ -165,7 +165,7 @@ Endpoint:
  - `controversial`
  - `hot`
 
-`{load_count}` and `{sort_type}` can be ommited, but both have to be specified when you want to specify `{sort_type}`.
+`{load_count}` and `{sort_type}` can be omitted, but both have to be specified when you want to specify `{sort_type}`.
 
 
 Example request:
