@@ -1,9 +1,9 @@
-from enum import StrEnum, auto
+from enum import StrEnum
 
 from fastapi import APIRouter
 from redditpythonapi import Article, ArticlesSortTime, ArticlesSortType
 
-from reddit.prepare_response import prepare_list_response_or_abort, prepare_random_response_or_abort
+from api.responses import prepare_list_response_or_abort, prepare_random_response_or_abort
 from reddit.reddit_client import (
     filter_media_articles,
     filter_text_articles,
