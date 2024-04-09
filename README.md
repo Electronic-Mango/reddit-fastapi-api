@@ -4,8 +4,12 @@
 [![Black](https://github.com/Electronic-Mango/reddit-api-api/actions/workflows/black.yml/badge.svg)](https://github.com/Electronic-Mango/reddit-api-api/actions/workflows/black.yml)
 [![Flake8](https://github.com/Electronic-Mango/reddit-api-api/actions/workflows/flake8.yml/badge.svg)](https://github.com/Electronic-Mango/reddit-api-api/actions/workflows/flake8.yml)
 
+> [!NOTE]
+> FastAPI version of this API isn't finished yet.
+> If you need a fully working version check out my old Flask [Reddit API API](https://github.com/Electronic-Mango/reddit-api-api).
+
 A simple Reddit REST API allowing accessing both subreddit and user articles,
-build with [`Flask`](https://github.com/pallets/flask/) and my [`Reddit Python API`](https://github.com/Electronic-Mango/reddit-python-api)!
+build with [`FastAPI`](https://fastapi.tiangolo.com/) and my [`Reddit Python API`](https://github.com/Electronic-Mango/reddit-python-api)!
 
 
 
@@ -34,7 +38,7 @@ build with [`Flask`](https://github.com/pallets/flask/) and my [`Reddit Python A
 
 ## Introduction and requirements
 
-This REST API was built using [`Flask`](https://github.com/pallets/flask/), my [`Reddit Python API`](https://github.com/Electronic-Mango/reddit-python-api)  and `Python 3.11`.
+This REST API was built using [`FastAPI`](https://fastapi.tiangolo.com/), my [`Reddit Python API`](https://github.com/Electronic-Mango/reddit-python-api)  and `Python 3.11`.
 Python version at least `3.11` is required.
 
 Full list of Python requirements is in `requirements.txt` file.
@@ -99,6 +103,9 @@ Default port where API requests are handled is `8080`, which is mapped to local 
 
 ## Additional authorization
 
+> [!NOTE]
+> Authorization isn't implemented in this version yet.
+
 Api has a basic authorization mechanism based on request header, separate from Reddit API OAuth 2.0.
 You can set authorization header name and expected value in `settings.yml` in `api` - `authorization_header` - `name` and `expected_value`.
 
@@ -135,6 +142,10 @@ You can get around this by modifying value of `CUSTOM_SETTINGS_PATH` in `docker-
 
 
 ## API endpoints
+
+> [!NOTE]
+> This ndpoint description isn't ready in FastAPI version.
+> In the meantime you can use swagger docs available as the root endpoint.
 
 All endpoints are accessible via `GET` requests.
 If request authorization is configured incoming requests needs to have correct header and its value.
