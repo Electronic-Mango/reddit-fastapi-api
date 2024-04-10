@@ -7,11 +7,10 @@ from api.models import ArticleListModel, ArticleModel
 from api.reddit_client import ArticleType, get_subreddit_articles, get_user_articles
 from api.responses import prepare_list_response_or_abort, prepare_random_response_or_abort
 
-subreddit_router = APIRouter(prefix="/subreddit")
-user_router = APIRouter(prefix="/user")
+router = APIRouter()
 
 
-@subreddit_router.get("/list/{subreddit}")
+@router.get("/subreddit/list/{subreddit}")
 async def subreddit_list(
     subreddit: Annotated[str, Path(description="Subreddit to load data from.")],
     sort: Annotated[ArticlesSortType, Query(description="Articles sort type.")] = None,
@@ -28,7 +27,7 @@ async def subreddit_list(
     return prepare_list_response_or_abort(articles)
 
 
-@subreddit_router.get("/random/{subreddit}")
+@router.get("/subreddit/random/{subreddit}")
 async def subreddit_random(
     subreddit: Annotated[str, Path(description="Subreddit to load data from.")],
     sort: Annotated[ArticlesSortType, Query(description="Articles sort type.")] = None,
@@ -45,7 +44,7 @@ async def subreddit_random(
     return prepare_random_response_or_abort(articles)
 
 
-@user_router.get("/list/{username}")
+@router.get("/user/list/{username}")
 async def user_list(
     username: Annotated[str, Path(description="Username to load data from.")],
     sort: Annotated[ArticlesSortType, Query(description="Articles sort type.")] = None,
@@ -62,7 +61,7 @@ async def user_list(
     return prepare_list_response_or_abort(articles)
 
 
-@user_router.get("/random/{username}")
+@router.get("/user/random/{username}")
 async def user_random(
     username: Annotated[str, Path(description="Username to load data from.")],
     sort: Annotated[ArticlesSortType, Query(description="Articles sort type.")] = None,
