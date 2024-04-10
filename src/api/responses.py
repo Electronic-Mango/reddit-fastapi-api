@@ -4,7 +4,7 @@ Module responsible for preparing responses with Reddit articles.
 
 from random import choice
 
-from fastapi import HTTPException
+from fastapi import HTTPException, status
 
 from api.models import ArticleListModel, ArticleModel
 
@@ -19,7 +19,7 @@ def prepare_list_response_or_abort(articles: list[ArticleModel]) -> ArticleListM
         ArticleListModel: Model representing list of articles, represents full input.
     """
     if not articles:
-        raise HTTPException(404, "No entries found")
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "No entries found")
     return ArticleListModel(count=len(articles), articles=articles)
 
 
@@ -33,5 +33,5 @@ def prepare_random_response_or_abort(articles: list[ArticleModel]) -> ArticleMod
         ArticleModel: Model representing single article, selected randomly from input.
     """
     if not articles:
-        raise HTTPException(404, "No entries found")
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "No entries found")
     return choice(articles)
