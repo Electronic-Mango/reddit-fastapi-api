@@ -3,7 +3,6 @@ Module responsible for accessing Reddit API via PRAW.
 """
 
 from enum import StrEnum
-from typing import Any, Callable
 
 from redditpythonapi import Article, ArticlesSortTime, ArticlesSortType, Reddit
 
