@@ -4,10 +4,6 @@
 [![Black](https://github.com/Electronic-Mango/reddit-api-api/actions/workflows/black.yml/badge.svg)](https://github.com/Electronic-Mango/reddit-api-api/actions/workflows/black.yml)
 [![Flake8](https://github.com/Electronic-Mango/reddit-api-api/actions/workflows/flake8.yml/badge.svg)](https://github.com/Electronic-Mango/reddit-api-api/actions/workflows/flake8.yml)
 
-> [!NOTE]
-> FastAPI version of this API isn't finished yet.
-> If you need a fully working version check out my old Flask [Reddit API API](https://github.com/Electronic-Mango/reddit-api-api).
-
 A simple Reddit REST API allowing accessing both subreddit and user articles,
 build with [`FastAPI`](https://fastapi.tiangolo.com/) and my [`Reddit Python API`](https://github.com/Electronic-Mango/reddit-python-api)!
 
