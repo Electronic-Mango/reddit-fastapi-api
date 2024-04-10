@@ -144,45 +144,52 @@ You can get around this by modifying value of `CUSTOM_SETTINGS_PATH` in `docker-
 ## API endpoints
 
 > [!NOTE]
-> This ndpoint description isn't ready in FastAPI version.
-> In the meantime you can use swagger docs available as the root endpoint.
+> Description of all endpoint, schemas, etc. can be accessed through swagger (`/docs`), or redoc (`/redoc`).
 
 All endpoints are accessible via `GET` requests.
 If request authorization is configured incoming requests needs to have correct header and its value.
 
+Each endpoint has a single path parameter and series of optional query parameters.
+Query parameters are the same across all endpoints.
+
 ### Get a list of articles from a subreddit
 
-Endpoint:
 ```
-/subreddit/{article_type}/{subreddit_name}/{load_count}/{sort_type}
+/subreddit/list/{subreddit}
 ```
 
-| Parameter          | Description                                                            | Optional | Default value |
-|--------------------|------------------------------------------------------------------------|----------|---------------|
-| `{article_type}`   | Whether to load all articles, only text or only images                 | No       |               |
-| `{subreddit_name}` | Name of subreddit to load articles from, including `all` and `popular` | Yes      | `all`         |
-| `{load_count}`     | How many articles to load                                              | Yes      | `50`          |
-| `{sort_type}`      | Which Reddit sorting type to use when loading articles                 | Yes      | `hot`         |
+`subreddit` path parameter specifies which subreddit should be accessed.
 
-`{article_type}` can be one of the following:
+Query parameters:
+ * `sort` - Which Reddit sorting type to use when loading articles
+ * `time` - Time period in which articles should be accessed
+ * `count` - How many articles will be loaded, Reddit API uses 25 by default
+ * `article_type` - Define whether to load all articles, only text or only images
 
- - `article` - all articles
+`sort` can be one of the following:
+ - `hot` - used by default
+ - `new`
+ - `rising`
+ - `top`
+ - `controversial`
+
+`time` can be one of the following:
+ - `hour`
+ - `day`
+ - `week`
+ - `month`
+ - `year`
+ - `all`
+
+`article_type` can be one of the following:
+ - `all` - all articles
  - `media` - only media articles
  - `text` - only articles where `selftext` is not empty
-
-`{sort_type}` can be one of the following:
-
- - `top`
- - `new`
- - `controversial`
- - `hot`
-
-`{load_count}` and `{sort_type}` can be omitted, but both have to be specified when you want to specify `{sort_type}`.
 
 
 Example request:
 ```
-GET /subreddit/article/wholesomememes/3/top
+GET /subreddit/list/wholesomememes?count=3&sort=top
 ```
 
 Example response:
@@ -191,108 +198,106 @@ Example response:
   "count": 3,
   "articles": [
     {
-      "author": "Boreol",
-      "created_utc": "Mon, 15 Aug 2022 11:22:19 GMT",
-      "id": "wov1zd",
-      "media_url": "https://i.redd.it/4xmwndm1iuh91.png",
+      "id": "1c0egcz",
+      "url": "https://i.redd.it/29nc1eq3eltc1.jpeg",
+      "title": "always true",
+      "author": "jeremyvi",
       "nsfw": false,
-      "permalink": "/r/wholesomememes/comments/wov1zd/hes_gonna_be_getting_all_the_ladies/",
-      "score": 55263,
-      "selftext": "",
       "spoiler": false,
-      "stickied": false,
+      "selftext": "",
+      "score": 18433,
+      "created_utc": "2024-04-10T08:00:16",
+      "permalink": "/r/wholesomememes/comments/1c0egcz/always_true/",
       "subreddit": "wholesomememes",
-      "title": "He's gonna be getting all the ladies",
-      "url": "https://i.redd.it/4xmwndm1iuh91.png"
+      "stickied": false,
+      "media_url": "https://i.redd.it/29nc1eq3eltc1.jpeg"
     },
     {
-      "author": "deserr",
-      "created_utc": "Sun, 14 Aug 2022 22:57:27 GMT",
-      "id": "wogjes",
-      "media_url": "https://i.redd.it/ayi2nev5tqh91.jpg",
+      "id": "1c0kt45",
+      "url": "https://i.redd.it/x16ms4i9fntc1.png",
+      "title": "I wants to pet him",
+      "author": "Puzzleheaded-Slip203",
       "nsfw": false,
-      "permalink": "/r/wholesomememes/comments/wogjes/looking_for_my_sweet_potato/",
-      "score": 27241,
-      "selftext": "",
       "spoiler": false,
-      "stickied": false,
+      "selftext": "",
+      "score": 12015,
+      "created_utc": "2024-04-10T14:50:34",
+      "permalink": "/r/wholesomememes/comments/1c0kt45/i_wants_to_pet_him/",
       "subreddit": "wholesomememes",
-      "title": "Looking for my sweet potato 🥺",
-      "url": "https://i.redd.it/ayi2nev5tqh91.jpg"
+      "stickied": false,
+      "media_url": "https://i.redd.it/x16ms4i9fntc1.png"
     },
     {
-      "author": "hackyandbird",
-      "created_utc": "Sun, 14 Aug 2022 23:40:27 GMT",
-      "id": "wohizo",
-      "media_url": "https://i.redd.it/vjbg1xcs0rh91.gif",
+      "id": "1c0cv7h",
+      "url": "https://i.redd.it/64qvbwu4xktc1.jpeg",
+      "title": "I wanna be a weather reporter too",
+      "author": "dyerama6",
       "nsfw": false,
-      "permalink": "/r/wholesomememes/comments/wohizo/sign_me_up/",
-      "score": 22436,
-      "selftext": "",
       "spoiler": false,
-      "stickied": false,
+      "selftext": "",
+      "score": 7515,
+      "created_utc": "2024-04-10T06:25:11",
+      "permalink": "/r/wholesomememes/comments/1c0cv7h/i_wanna_be_a_weather_reporter_too/",
       "subreddit": "wholesomememes",
-      "title": "Sign me up",
-      "url": "https://i.redd.it/vjbg1xcs0rh91.gif"
+      "stickied": false,
+      "media_url": "https://i.redd.it/64qvbwu4xktc1.jpeg"
     }
   ]
 }
 ```
 
-For images and GIFs `media_url` field is the same as `url`.
-For videos, it will be a different URL.
-
 
 ### Get one random article from a subreddit
 
-Endpoint:
 ```
-/subreddit/{article_type}/random/{subreddit_name}/{load_count}/{sort_type}
+/subreddit/random/{subreddit}
 ```
 
-All parameters are the same as for [loading a list of articles for a subreddit](#get-a-list-of-articles-from-a-subreddit).
+`subreddit` path parameter specifies which subreddit should be accessed.
 
-`{load_count}` determines how many articles will be loaded, a random one will be selected from them.
+All query query parameters are the same as for [loading a list of articles for a subreddit](#get-a-list-of-articles-from-a-subreddit).
+
+`count` determines how many articles will be loaded, a random one will be selected from them.
 
 
 Example request:
 ```
-GET /subreddit/text/random/explainlikeimfive/100/top
+GET /subreddit/random/explainlikeimfive?count=100&sort=top&article_type=text
 ```
 
 Example response:
 ```json
 {
-  "author": "streetpony445",
-  "created_utc": "Mon, 15 Aug 2022 00:59:12 GMT",
-  "id": "wojb18",
-  "media_url": null,
+  "id": "1c05ako",
+  "url": "https://www.reddit.com/r/explainlikeimfive/comments/1c05ako/eli5_why_was_purple_dye_so_rare_historically/",
+  "title": "ELI5: Why was purple dye so rare historically?",
+  "author": "Inside-Honeydew9785",
   "nsfw": false,
-  "permalink": "/r/explainlikeimfive/comments/wojb18/eli5_what_is_negative_pressure/",
-  "score": 1,
-  "selftext": "I was listening to an astronomy talk at an observatory and the speaker mentioned “negative pressure”. How is that even possible",
   "spoiler": false,
-  "stickied": false,
+  "selftext": "I know natural purple itself was difficult to obtain, but why didn’t they just mix red and blue? Were those also rare? Did it just not work?",
+  "score": 610,
+  "created_utc": "2024-04-10T00:28:23",
+  "permalink": "/r/explainlikeimfive/comments/1c05ako/eli5_why_was_purple_dye_so_rare_historically/",
   "subreddit": "explainlikeimfive",
-  "title": "eli5: what is negative pressure?",
-  "url": "https://www.reddit.com/r/explainlikeimfive/comments/wojb18/eli5_what_is_negative_pressure/"
+  "stickied": false,
+  "media_url": null
 }
 ```
 
 
 ### Get a list of articles from a Reddit user
 
-Endpoint:
 ```
-/user/{article_type}/{user_name}/{load_count}/{sort_type}
+/user/list/{username}
 ```
 
-All parameters are the same as for [loading a list of articles for a subreddit](#get-a-list-of-articles-from-a-subreddit), except for providing a Reddit username instead of subreddit name.
-Username parameter is required, unlike subreddit.
+`username` path parameter specifies which user's submissions should be accessed.
+
+All query parameters are the same as for [loading a list of articles for a subreddit](#get-a-list-of-articles-from-a-subreddit).
 
 Example request:
 ```
-GET /user/media/cme_t/3
+GET /user/list/cme_t?count=4&article_type=media&time=year
 ```
 
 Example response:
@@ -301,79 +306,80 @@ Example response:
   "count": 2,
   "articles": [
     {
+      "id": "1bwm2xo",
+      "url": "https://i.redd.it/htb0twxhrosc1.jpeg",
+      "title": "[OC][Art] The Weekly Roll Ch.150. ”One-Fifty, Baby!”",
       "author": "CME_T",
-      "created_utc": "Mon, 25 Jul 2022 18:08:12 GMT",
-      "id": "w7stzz",
-      "media_url": "https://i.redd.it/fzworhhimqd91.jpg",
       "nsfw": false,
-      "permalink": "/r/TheWeeklyRoll/comments/w7stzz/ch_124_common_knowledge/",
-      "score": 5366,
-      "selftext": "",
       "spoiler": false,
+      "selftext": "",
+      "score": 420,
+      "created_utc": "2024-04-05T18:16:35",
+      "permalink": "/r/DnD/comments/1bwm2xo/ocart_the_weekly_roll_ch150_onefifty_baby/",
+      "subreddit": "DnD",
       "stickied": false,
-      "subreddit": "TheWeeklyRoll",
-      "title": "Ch. 124. \"Common knowledge\"",
-      "url": "https://i.redd.it/fzworhhimqd91.jpg"
+      "media_url": "https://i.redd.it/htb0twxhrosc1.jpeg"
     },
     {
+      "id": "1bviskx",
+      "url": "https://i.redd.it/7v823myvkfsc1.jpeg",
+      "title": "[OC] The Weekly Roll Ch. 150. \"One-Fifty, Baby!\"",
       "author": "CME_T",
-      "created_utc": "Mon, 25 Jul 2022 18:08:00 GMT",
-      "id": "w7stti",
-      "media_url": "https://i.redd.it/4kid37rjmqd91.jpg",
       "nsfw": false,
-      "permalink": "/r/DnD/comments/w7stti/artoc_the_weekly_roll_ch_124_common_knowledge/",
-      "score": 1913,
-      "selftext": "",
       "spoiler": false,
+      "selftext": "",
+      "score": 4154,
+      "created_utc": "2024-04-04T11:23:58",
+      "permalink": "/r/dndmemes/comments/1bviskx/oc_the_weekly_roll_ch_150_onefifty_baby/",
+      "subreddit": "dndmemes",
       "stickied": false,
-      "subreddit": "DnD",
-      "title": "[Art][OC] The Weekly Roll Ch. 124. \"Common knowledge\"",
-      "url": "https://i.redd.it/4kid37rjmqd91.jpg"
+      "media_url": "https://i.redd.it/7v823myvkfsc1.jpeg"
     }
   ]
 }
 ```
 
-Notice that 3 media articles were requested, but response only contains 2.
-It's because out of 3 loaded articles only 2 were images.
-
-Also, since `{sort_type}` was omitted default value of `hot` was used.
+Notice that 4 media articles were requested, but response only contains 2.
+It's because out of 4 loaded articles only 2 were images.
 
 
 ### Get a random article from a Reddit user
 
 Endpoint:
 ```
-/user/{article_type}/random/{user_name}/{load_count}/{sort_type}
+/user/random/{username}
 ```
 
-All parameters are the same as for [loading a list of articles for a Reddit user](#get-a-list-of-articles-from-a-reddit-user).
+`username` path parameter specifies which user's submissions should be accessed.
+
+All query parameters are the same as for [loading a list of articles for a subreddit](#get-a-list-of-articles-from-a-subreddit).
+
+`count` determines how many articles will be loaded, a random one will be selected from them.
 
 Example request:
 ```
-GET /user/media/random/cme_t/
+GET /user/random/cme_t?article_type=media
 ```
 
 Example response:
 ```json
 {
+  "id": "1bk228v",
+  "url": "https://i.redd.it/grjrcu98jnpc1.jpeg",
+  "title": "The Weekly Roll Ch. 149. \"WHAT DAY IS IT?!\"",
   "author": "CME_T",
-  "created_utc": "Sun, 17 Jul 2022 21:41:08 GMT",
-  "id": "w1fkap",
-  "media_url": "https://i.redd.it/2oikh0bvl6c91.jpg",
   "nsfw": false,
-  "permalink": "/r/TheWeeklyRoll/comments/w1fkap/ch_123_were_shorthanded_af/",
-  "score": 5600,
-  "selftext": "",
   "spoiler": false,
-  "stickied": false,
+  "selftext": "",
+  "score": 1529,
+  "created_utc": "2024-03-21T09:56:03",
+  "permalink": "/r/TheWeeklyRoll/comments/1bk228v/the_weekly_roll_ch_149_what_day_is_it/",
   "subreddit": "TheWeeklyRoll",
-  "title": "Ch. 123. \"We're short-handed af\"",
-  "url": "https://i.redd.it/2oikh0bvl6c91.jpg"
+  "stickied": false,
+  "media_url": "https://i.redd.it/grjrcu98jnpc1.jpeg"
 }
 ```
 
-Since both `{load_count}` and `{sort_type}` were omitted, the default values of `50` and `hot` were used.
 
 
 ## Filtering and article types
