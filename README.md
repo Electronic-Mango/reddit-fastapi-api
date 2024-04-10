@@ -103,11 +103,8 @@ Default port where API requests are handled is `8080`, which is mapped to local 
 
 ## Additional authorization
 
-> [!NOTE]
-> Authorization isn't implemented in this version yet.
-
-Api has a basic authorization mechanism based on request header, separate from Reddit API OAuth 2.0.
-You can set authorization header name and expected value in `settings.yml` in `api` - `authorization_header` - `name` and `expected_value`.
+Api has a basic authorization mechanism based on API key send as request header, separate from Reddit API OAuth 2.0.
+You can set API key header name and expected value in `settings.yml` in `api` - `authorization_header` - `name` and `expected_value`.
 
 If either of them is empty authorization will be disabled and all requests will be accepted.
 
