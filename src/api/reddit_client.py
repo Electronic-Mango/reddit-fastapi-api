@@ -3,6 +3,7 @@ Module responsible for accessing Reddit API via PRAW.
 """
 
 from enum import StrEnum
+from typing import Any, Callable
 
 from redditpythonapi import Article, ArticlesSortTime, ArticlesSortType, Reddit
 
@@ -86,12 +87,8 @@ def _filter_articles(
 ) -> list[ArticleModel]:
     match article_type:
         case ArticleType.MEDIA:
-            return _filter_articles_by_key(articles, "media_url")
+            return list(filter(lambda article: article.media_url, articles))
         case ArticleType.TEXT:
-            return _filter_articles_by_key(articles, "selftext")
+            return list(filter(lambda article: article.selftext, articles))
         case _:
             return articles
-
-
-def _filter_articles_by_key(articles: list[ArticleModel], key: str) -> list[ArticleModel]:
-    return list(filter(lambda article: article[key], articles))
