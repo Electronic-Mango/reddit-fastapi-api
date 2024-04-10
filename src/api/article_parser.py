@@ -40,7 +40,7 @@ def parse_article(article: Article) -> ArticleModel:
         author=article.get("author"),
         nsfw=article.get("over_18", False),
         spoiler=article.get("spoiler", False),
-        selftext=article.get("selftext"),
+        selftext=article.get("selftext", ""),
         score=article.get("score", 0),
         created_utc=datetime.fromtimestamp(article.get("created_utc", 0)),
         permalink=article.get("permalink"),
