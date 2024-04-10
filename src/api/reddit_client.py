@@ -47,7 +47,8 @@ async def get_subreddit_articles(
         list[ArticleModel]: list of all loaded articles from given subreddit.
     """
     articles = await _reddit.subreddit_articles(subreddit, sort, time, limit)
-    return _parse_and_filter_articles(articles, article_type)
+    models = _parse_articles_to_models(articles)
+    return _filter_articles(models, article_type)
 
 
 async def get_user_articles(
@@ -72,17 +73,11 @@ async def get_user_articles(
         list[ArticleModel]: list of all loaded articles from given user.
     """
     articles = await _reddit.user_articles(username, sort, time, limit)
-    return _parse_and_filter_articles(articles, article_type)
+    models = _parse_articles_to_models(articles)
+    return _filter_articles(models, article_type)
 
 
-def _parse_and_filter_articles(
-    articles: list[Article], article_type: ArticleType
-) -> list[ArticleModel]:
-    parsed_articles = _parse_articles(articles)
-    return _filter_articles(parsed_articles, article_type)
-
-
-def _parse_articles(articles: list[Article]) -> list[ArticleModel]:
+def _parse_articles_to_models(articles: list[Article]) -> list[ArticleModel]:
     return list(map(parse_article, articles))
 
 
