@@ -1,5 +1,5 @@
 """
-Module responsible for API itself, registers all blueprints.
+Module responsible for API itself, registers all routers.
 """
 
 from fastapi import FastAPI

@@ -1,3 +1,7 @@
+"""
+Module storing all pydantic Models used by the API.
+"""
+
 from datetime import datetime
 
 from pydantic import BaseModel

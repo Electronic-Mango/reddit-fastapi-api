@@ -1,3 +1,7 @@
+"""
+Module storing all available routes in the API.
+"""
+
 from typing import Annotated
 
 from fastapi import APIRouter, Path, Query
