@@ -6,7 +6,7 @@ from enum import StrEnum
 
 from redditpythonapi import Article, ArticlesSortTime, ArticlesSortType, Reddit
 
-from reddit.article_parser import parse_article
+from api.article_parser import ArticleModel, parse_article
 from settings import REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET, REDDIT_CLIENT_USER_AGENT
 
 
@@ -31,8 +31,8 @@ async def get_subreddit_articles(
     time: ArticlesSortTime | None,
     limit: int | None,
     article_type: ArticleType = ArticleType.ALL,
-) -> list[Article]:
-    """Get a list of articles from the given subreddit
+) -> list[ArticleModel]:
+    """Get a list of articles from the given subreddit and parse it into appropriate models.
 
     Resulting list can be shorter than "limit" argument if given subreddit has fewer articles.
 
@@ -44,7 +44,7 @@ async def get_subreddit_articles(
         article_type (ArticleType): type of articles to filter out from Reddit API response
 
     Returns:
-        list[Article]: list of all loaded articles from given subreddit.
+        list[ArticleModel]: list of all loaded articles from given subreddit.
     """
     articles = await _reddit.subreddit_articles(subreddit, sort, time, limit)
     return _parse_and_filter_articles(articles, article_type)
@@ -56,8 +56,8 @@ async def get_user_articles(
     time: ArticlesSortTime | None,
     limit: int | None,
     article_type: ArticleType = ArticleType.ALL,
-) -> list[Article]:
-    """Get a list of articles from user with the given username
+) -> list[ArticleModel]:
+    """Get a list of articles from a given use and parse it into appropriate models.
 
     Resulting list can be shorter than "limit" argument if given user has fewer submissions.
 
@@ -69,22 +69,26 @@ async def get_user_articles(
         article_type (ArticleType): type of articles to filter out from Reddit API response
 
     Returns:
-        list[Article]: list of all loaded articles from given user.
+        list[ArticleModel]: list of all loaded articles from given user.
     """
     articles = await _reddit.user_articles(username, sort, time, limit)
     return _parse_and_filter_articles(articles, article_type)
 
 
-def _parse_and_filter_articles(articles: list[Article], article_type: ArticleType) -> list[Article]:
+def _parse_and_filter_articles(
+    articles: list[Article], article_type: ArticleType
+) -> list[ArticleModel]:
     parsed_articles = _parse_articles(articles)
     return _filter_articles(parsed_articles, article_type)
 
 
-def _parse_articles(articles: list[Article]) -> list[Article]:
+def _parse_articles(articles: list[Article]) -> list[ArticleModel]:
     return list(map(parse_article, articles))
 
 
-def _filter_articles(articles: list[Article], article_type: ArticleType | None) -> list[Article]:
+def _filter_articles(
+    articles: list[ArticleModel], article_type: ArticleType | None
+) -> list[ArticleModel]:
     match article_type:
         case ArticleType.MEDIA:
             return _filter_articles_by_key(articles, "media_url")
@@ -94,5 +98,5 @@ def _filter_articles(articles: list[Article], article_type: ArticleType | None) 
             return articles
 
 
-def _filter_articles_by_key(articles: list[Article], key: str) -> list[Article]:
+def _filter_articles_by_key(articles: list[ArticleModel], key: str) -> list[ArticleModel]:
     return list(filter(lambda article: article[key], articles))

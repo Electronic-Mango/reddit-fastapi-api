@@ -3,35 +3,35 @@ Module responsible for preparing responses with Reddit articles.
 """
 
 from random import choice
-from typing import Any
 
 from fastapi import HTTPException
 
-from reddit.reddit_client import Article
+from api.article_parser import ArticleModel
+from api.models import ArticleListModel
 
 
-def prepare_list_response_or_abort(articles: list[Article]) -> dict[str, Any]:
+def prepare_list_response_or_abort(articles: list[ArticleModel]) -> ArticleListModel:
     """Prepare API list response or abort with code 404 if no articles are present
 
     Args:
-        articles (list[Article]): list of Reddit articles to send back
+        articles (list[ArticleModel]): list of Reddit article models to send back
 
     Returns:
-        dict[str, Any]: JSON containing list of generated articles and their count
+        ArticleListModel: Model representing list of articles, represents full input.
     """
     if not articles:
         raise HTTPException(404, "No entries found")
-    return {"count": len(articles), "articles": articles}
+    return ArticleListModel(count=len(articles), articles=articles)
 
 
-def prepare_random_response_or_abort(articles: list[Article]) -> dict[str, Any]:
+def prepare_random_response_or_abort(articles: list[ArticleModel]) -> ArticleModel:
     """Prepare API random, single response or abort with code 404 if no articles are present
 
     Args:
-        articles (list[Article]): list of articles to pick one random from to send back
+        articles (list[ArticleModel]): list of article models to pick one random from to send back
 
     Returns:
-        dict[str, Any]: JSON containing data of one random article
+        ArticleModel: Model representing single article, selected randomly from input.
     """
     if not articles:
         raise HTTPException(404, "No entries found")

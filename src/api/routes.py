@@ -1,8 +1,11 @@
-from fastapi import APIRouter
+from typing import Annotated
+
+from fastapi import APIRouter, Path, Query
 from redditpythonapi import ArticlesSortTime, ArticlesSortType
 
+from api.models import ArticleListModel, ArticleModel
+from api.reddit_client import ArticleType, get_subreddit_articles, get_user_articles
 from api.responses import prepare_list_response_or_abort, prepare_random_response_or_abort
-from reddit.reddit_client import ArticleType, get_subreddit_articles, get_user_articles
 
 subreddit_router = APIRouter(prefix="/subreddit")
 user_router = APIRouter(prefix="/user")
@@ -10,47 +13,67 @@ user_router = APIRouter(prefix="/user")
 
 @subreddit_router.get("/list/{subreddit}")
 async def subreddit_list(
-    subreddit: str,
-    sort: ArticlesSortType = None,
-    time: ArticlesSortTime = None,
-    count: int = None,
-    article_type: ArticleType = None,
-):
+    subreddit: Annotated[str, Path(description="Subreddit to load data from.")],
+    sort: Annotated[ArticlesSortType, Query(description="Articles sort type.")] = None,
+    time: Annotated[ArticlesSortTime, Query(description="Time period of posted articles.")] = None,
+    count: Annotated[int, Query(description="How many articles should be loaded.", gt=0)] = None,
+    article_type: Annotated[ArticleType, Query(description="Type of articles to return.")] = None,
+) -> ArticleListModel:
+    """Endpoint returning a list of articles from the given subreddit.
+
+    Argument `count` specifies only how many articles are loaded from subreddit.
+    Number of articles can be lower than `count` if given subreddit has fewer articles.
+    """
     articles = await get_subreddit_articles(subreddit, sort, time, count, article_type)
     return prepare_list_response_or_abort(articles)
 
 
 @subreddit_router.get("/random/{subreddit}")
 async def subreddit_random(
-    subreddit: str,
-    sort: ArticlesSortType = None,
-    time: ArticlesSortTime = None,
-    count: int = None,
-    article_type: ArticleType = None,
-):
+    subreddit: Annotated[str, Path(description="Subreddit to load data from.")],
+    sort: Annotated[ArticlesSortType, Query(description="Articles sort type.")] = None,
+    time: Annotated[ArticlesSortTime, Query(description="Time period of posted articles.")] = None,
+    count: Annotated[int, Query(description="How many articles should be loaded.", gt=0)] = None,
+    article_type: Annotated[ArticleType, Query(description="Type of articles to return.")] = None,
+) -> ArticleModel:
+    """Endpoint returning a single random article from the given subreddit.
+
+    Up to `count` articles are loaded, then a random one is selected
+    Number of loaded articles can be lower than `count` if given subreddit has fewer articles.
+    """
     articles = await get_subreddit_articles(subreddit, sort, time, count, article_type)
     return prepare_random_response_or_abort(articles)
 
 
 @user_router.get("/list/{username}")
 async def user_list(
-    username: str,
-    sort: ArticlesSortType = None,
-    time: ArticlesSortTime = None,
-    count: int = None,
-    article_type: ArticleType = None,
-):
+    username: Annotated[str, Path(description="Username to load data from.")],
+    sort: Annotated[ArticlesSortType, Query(description="Articles sort type.")] = None,
+    time: Annotated[ArticlesSortTime, Query(description="Time period of posted articles.")] = None,
+    count: Annotated[int, Query(description="How many articles should be loaded.", gt=0)] = None,
+    article_type: Annotated[ArticleType, Query(description="Type of articles to return.")] = None,
+) -> ArticleListModel:
+    """Endpoint returning a list of articles from the given user.
+
+    Argument `count` specifies only how many articles are loaded from user.
+    Number of articles can be lower than `count` if given user has submitted fewer articles.
+    """
     articles = await get_user_articles(username, sort, time, count, article_type)
     return prepare_list_response_or_abort(articles)
 
 
 @user_router.get("/random/{username}")
 async def user_random(
-    username: str,
-    sort: ArticlesSortType = None,
-    time: ArticlesSortTime = None,
-    count: int = None,
-    article_type: ArticleType = None,
-):
+    username: Annotated[str, Path(description="Username to load data from.")],
+    sort: Annotated[ArticlesSortType, Query(description="Articles sort type.")] = None,
+    time: Annotated[ArticlesSortTime, Query(description="Time period of posted articles.")] = None,
+    count: Annotated[int, Query(description="How many articles should be loaded.", gt=0)] = None,
+    article_type: Annotated[ArticleType, Query(description="Type of articles to return.")] = None,
+) -> ArticleModel:
+    """Endpoint returning a single random article from the given user.
+
+    Up to `count` articles are loaded, then a random one is selected
+    Number of loaded articles can be lower than `count` if given user has submitted fewer articles.
+    """
     articles = await get_user_articles(username, sort, time, count, article_type)
     return prepare_random_response_or_abort(articles)

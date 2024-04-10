@@ -3,12 +3,13 @@ Module responsible for JSONifying Reddit articles.
 """
 
 from datetime import datetime
-from typing import Any
 
 from redditpythonapi import Article
 
+from api.models import ArticleModel
 
-def parse_article(article: Article) -> dict[str, Any]:
+
+def parse_article(article: Article) -> ArticleModel:
     """Change Reddit article to a JSON-like dict
 
     Only a selected values are present in resulting JSON:
@@ -27,26 +28,26 @@ def parse_article(article: Article) -> dict[str, Any]:
      - media_url - custom parameter storing URL for media articles
 
     Args:
-        article (Article): Reddit article to JSONify
+        article (Article): Reddit article to parse
 
     Returns:
-        dict[str, Any]: dict containing JSONified article
+        ArticleModel: model containing parsed data
     """
-    return {
-        "id": article.get("id"),
-        "url": article.get("url"),
-        "title": article.get("title"),
-        "author": article.get("author"),
-        "nsfw": article.get("over_18", False),
-        "spoiler": article.get("spoiler", False),
-        "selftext": article.get("selftext"),
-        "score": article.get("score"),
-        "created_utc": datetime.fromtimestamp(article.get("created_utc", 0)),
-        "permalink": article.get("permalink"),
-        "subreddit": article.get("subreddit"),
-        "stickied": article.get("stickied"),
-        "media_url": _parse_media_url(article),
-    }
+    return ArticleModel(
+        id=article.get("id"),
+        url=article.get("url"),
+        title=article.get("title"),
+        author=article.get("author"),
+        nsfw=article.get("over_18", False),
+        spoiler=article.get("spoiler", False),
+        selftext=article.get("selftext"),
+        score=article.get("score", 0),
+        created_utc=datetime.fromtimestamp(article.get("created_utc", 0)),
+        permalink=article.get("permalink"),
+        subreddit=article.get("subreddit"),
+        stickied=article.get("stickied", False),
+        media_url=_parse_media_url(article),
+    )
 
 
 def _parse_media_url(article: Article) -> str | None:
