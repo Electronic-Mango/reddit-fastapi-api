@@ -6,8 +6,7 @@ from random import choice
 
 from fastapi import HTTPException
 
-from api.article_parser import ArticleModel
-from api.models import ArticleListModel
+from api.models import ArticleListModel, ArticleModel
 
 
 def prepare_list_response_or_abort(articles: list[ArticleModel]) -> ArticleListModel:

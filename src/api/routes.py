@@ -4,7 +4,7 @@ from fastapi import APIRouter, Path, Query
 from redditpythonapi import ArticlesSortTime, ArticlesSortType
 
 from api.models import ArticleListModel, ArticleModel
-from api.reddit_client import ArticleType, get_subreddit_articles, get_user_articles
+from api.reddit import ArticleType, get_subreddit_articles, get_user_articles
 from api.responses import prepare_list_response_or_abort, prepare_random_response_or_abort
 
 router = APIRouter()
