@@ -3,7 +3,6 @@
 # By default, this file will be added to the image.
 # To avoid this you can use custom settings YAML in a mounted volume.
 
-version: "3.9"
 services:
   reddit-fastapi-api:
     image: reddit-fastapi-api:latest
